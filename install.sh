@@ -5,4 +5,5 @@
 
 stow --target=$HOME --adopt hypr 
 stow --target=$HOME --adopt mimeapps
-git --reset hard
+
+hyprctl reload
