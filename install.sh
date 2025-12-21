@@ -3,5 +3,6 @@
 ./bin/install-stow.sh
 ./bin/install-firefox.sh
 
-stow --target=$HOME hypr
-stow --target=$HOME mimeapps
+stow --target=$HOME --adopt hypr 
+stow --target=$HOME --adopt mimeapps
+git --reset hard
