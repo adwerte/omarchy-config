@@ -5,7 +5,7 @@ if yay -Q rust; then
 fi
 
 
-yay --noconfirm --needed -S rustup
+sudo pacman --noconfirm --needed -S rustup
 
 rustup default stable
 rustup component add clippy rustfmt
