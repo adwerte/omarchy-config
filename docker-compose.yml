@@ -1,14 +1,16 @@
 # More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
+networks:
+  web-network:
+    driver: bridge
+    
 services:
   pihole:
-    container_name: pihole
+    container_name: pihole_server
     image: pihole/pihole:latest
     ports:
       # DNS Ports
       - "192.168.0.190:53:53/tcp"
       - "192.168.0.190:53:53/udp"
-      # Default HTTP Port
-      #- "192.168.0.190:80:80/tcp"
       # Default HTTPs Port. FTL will generate a self-signed certificate
       #- "192.168.0.190:443:443/tcp"
       # Uncomment the below if using Pi-hole as your DHCP Server
@@ -36,3 +38,16 @@ services:
       # Optional, if Pi-hole should get some more processing time
       - SYS_NICE
     restart: unless-stopped
+    networks:
+      - web-network
+  nginx:
+    restart: unless-stopped
+    image: nginx:1-alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - pihole
+    networks:
+      - web-network
