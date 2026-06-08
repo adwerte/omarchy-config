@@ -1,0 +1,8 @@
+http://pihole.home.arpa {
+    reverse_proxy pihole_server:80
+}
+
+budget.home.arpa {
+    encode gzip zstd
+    reverse_proxy actual_server:5006
+}
