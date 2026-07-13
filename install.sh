@@ -9,6 +9,7 @@
 
 stow --target=$HOME --adopt hypr 
 stow --target=$HOME --adopt mimeapps
+stow --target=$HOME --adopt bash
 
 
 hyprctl reload
