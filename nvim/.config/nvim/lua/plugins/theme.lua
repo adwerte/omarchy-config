@@ -1,1 +1,0 @@
-/home/adriaan/.config/omarchy/current/theme/neovim.lua
