@@ -10,6 +10,7 @@
 stow --target=$HOME --adopt hypr 
 stow --target=$HOME --adopt mimeapps
 stow --target=$HOME --adopt bash
+stow --target=$HOME --adopt helix
 
 
 hyprctl reload
