@@ -1,5 +1,5 @@
 http://pihole.local {
-    reverse_proxy pihole_server:80
+    reverse_proxy pihole_server:3000
 }
 
 budget.local {
