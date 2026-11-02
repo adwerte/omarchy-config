@@ -12,8 +12,5 @@ stow --target=$HOME --adopt bash
 stow --target=$HOME --adopt helix
 stow --target=$HOME --adopt yazi
 
-
-hyprctl reload
-sudo systemctl restart systemd-logind
 ./bin/set-dns.sh "8.8.8.8"
 ./bin/disable-lidswitch.sh
