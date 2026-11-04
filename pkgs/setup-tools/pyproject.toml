@@ -1,0 +1,20 @@
+[project]
+name = "setup-tools"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Adriaan R. van Roosmalen", email = "vikingvej@hotmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "tomli-w>=1.2.0",
+]
+
+[project.scripts]
+setup_windows = "setup_tools:setup_windows"
+black_toml = "setup_tools:black_toml"
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"
