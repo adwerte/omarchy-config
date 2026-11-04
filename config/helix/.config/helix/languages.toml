@@ -1,11 +1,13 @@
-[language-server.rust-analyzer]
-command = "lspmux"
-config = { check = { command = "clippy" } }
-
-
 [[language]]
 name = "python"
 language-servers = ["pyright"]
+file-types = ["py"]
+auto-format = true
+formatter = { command = "sh", args = ["-c", "isort --stdout --profile black - | black --quiet -"] }
+
+
+[language-server.rust-analyzer]
+config = { check = { command = "clippy" } }
 
 [language-server.pyright]
 command = "pyright-langserver"
