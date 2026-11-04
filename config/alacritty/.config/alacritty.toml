@@ -2,9 +2,4 @@
 import = [
   "./kanagawa_wave.toml"
 ]
-working_directory = "C:/Users/aroosmalen/Documents/Code"
 
-[keyboard]
-bindings = [
-  {key = "N", mods="Control", action="SpawnNewInstance"}
-]
