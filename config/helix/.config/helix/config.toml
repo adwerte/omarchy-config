@@ -20,8 +20,7 @@ hidden = false
 focus-lost = true
 
 [editor.inline-diagnostics]
-cursor-line = "warning" # show
+cursor-line = "warning"
 
 [keys.normal]
-# Prefill Helix's command line; type instructions and press Enter.
 C-p = "@:pipe-to<space>powershell.exe<space>-NoProfile<space>-ExecutionPolicy<space>Bypass<space>-File<space>%%AppData%%\\helix\\send-selection-to-copilot.ps1<space>-AdditionalPrompt<space>"

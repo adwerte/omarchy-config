@@ -1,3 +1,7 @@
 [opener]
-edit = [{ run = 'helix %s', block = true }]
-edit_windows = [{ run = 'hx %s', block = true }]
+edit = [
+    { run = "helix %s", block = true },
+]
+edit_windows = [
+    { run = "hx %s", block = true },
+]

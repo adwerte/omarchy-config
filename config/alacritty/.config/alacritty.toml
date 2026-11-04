@@ -1,5 +1,4 @@
 [general]
 import = [
-  "./kanagawa_wave.toml"
+    "./kanagawa_wave.toml",
 ]
-
