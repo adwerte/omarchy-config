@@ -1,6 +1,7 @@
 # adwerte-config
 
 Configuration files for Adwerte's Windows and Linux setups.
+You will need to install alacritty manually.
 
 This repository uses [Just](https://just.systems/) to provide cross-platform commands.
 Install Just using cargo:
