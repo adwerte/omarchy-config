@@ -13,7 +13,6 @@ dependencies = [
 
 [project.scripts]
 setup_windows = "setup_tools:setup_windows"
-black_toml = "setup_tools:black_toml"
 
 [build-system]
 requires = ["uv_build>=0.13.7,<0.14.0"]
