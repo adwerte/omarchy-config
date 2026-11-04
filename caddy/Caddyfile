@@ -4,6 +4,6 @@ http://pihole.local {
 
 budget.local {
     encode gzip zstd
-    tls internal
+    tls /certs/budget.local.crt /certs/budget.local.key
     reverse_proxy actual_server:5006
 }
