@@ -6,11 +6,11 @@
 ./bin/install-yazi.sh
 ./bin/install-uv.sh
 
-stow --target=$HOME --adopt hypr 
-stow --target=$HOME --adopt mimeapps
-stow --target=$HOME --adopt bash
-stow --target=$HOME --adopt helix
-stow --target=$HOME --adopt yazi
+stow --dir=./config --target=$HOME --adopt hypr 
+stow --dir=./config --target=$HOME --adopt mimeapps
+stow --dir=./config --target=$HOME --adopt bash
+stow --dir=./config --target=$HOME --adopt helix
+stow --dir=./config --target=$HOME --adopt yazi
 
 ./bin/set-dns.sh "8.8.8.8"
 ./bin/disable-lidswitch.sh
