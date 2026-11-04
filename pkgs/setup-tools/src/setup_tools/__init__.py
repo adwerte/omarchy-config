@@ -10,14 +10,17 @@ import tomli_w
 
 def setup_windows() -> None:
     parser = argparse.ArgumentParser(
-        "Windows Setup Tool",
-        "This method moves the configuration files in <config> into the APPDATA folder on windows, and moves it into a temporary folder on other systems.",
+        prog="Windows Setup Tool",
+        description=(
+            "Copy the configuration in <config> into the APPDATA "
+            "folder on Windows, or into a debug folder on other systems"
+        ),
     )
     parser.add_argument("config", help="Config folder location")
     parser.add_argument(
         "-do",
         "--debug-output",
-        help="Debug output location for non windows functions.",
+        help="output location on non-Windows systems (default: %(default)s)",
         type=str,
         default="./temp/",
     )
@@ -26,9 +29,9 @@ def setup_windows() -> None:
     config = Path(args.config)
     debug_output = Path(args.debug_output)
 
-    # On non-windows systems we use the debug path.
+    # Non-Windows systems write to the debug directory instead of APPDATA
     if os.name == "nt":
-        appdata_folder = Path(os.getenv("APPDATA"))
+        appdata_folder = Path(os.environ["APPDATA"])
     else:
         appdata_folder = debug_output
 
@@ -37,11 +40,11 @@ def setup_windows() -> None:
         if not folder.is_dir():
             continue
 
-        # 1. We copy the folders into the target folder, changing the structure to fit with windows.
+        # Copy the folder into the target, flattening the structure to match Windows.
         target_folder = appdata_folder / folder.name
         shutil.copytree(folder, target_folder, dirs_exist_ok=True)
 
-        # 2. We change the toml files such any settings specific for windows systems are changed to be the default.
+        # Promote Windows-specific TOML settings to the defaults.
         toml_files = target_folder.glob("**/*.toml")
         for toml_file in toml_files:
             toml = tomllib.loads(toml_file.read_text())
@@ -50,7 +53,7 @@ def setup_windows() -> None:
 
 
 def _convert_to_windows(toml: dict[str, Any] | Any) -> dict[str, Any] | Any:
-    "This function removes all keys with the name ending with _windows and inserts them in the stripped name."
+    """Promote '*_windows' keys to their unsuffixed names, in place."""
     if not isinstance(toml, dict):
         return toml
 
@@ -61,7 +64,7 @@ def _convert_to_windows(toml: dict[str, Any] | Any) -> dict[str, Any] | Any:
             continue
 
         value = toml.pop(key)
-        new_key = key.strip("_windows")
+        new_key = key.removesuffix("_windows")
         toml[new_key] = value
 
         _convert_to_windows(toml[new_key])
