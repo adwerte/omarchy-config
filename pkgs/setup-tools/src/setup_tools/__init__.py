@@ -1,16 +1,26 @@
-import tomli_w
-import tomllib
-import os
 import argparse
-from pathlib import Path
+import os
 import shutil
+import tomllib
+from pathlib import Path
 from typing import Any
+
+import tomli_w
 
 
 def setup_windows() -> None:
-    parser = argparse.ArgumentParser("Windows Setup Tool", "This method moves the configuration files in <config> into the APPDATA folder on windows, and moves it into a temporary folder on other systems.")
-    parser.add_argument("config", help = "Config folder location")
-    parser.add_argument("-do", "--debug-output", help = "Debug output location for non windows functions.", type=str, default="./temp/")
+    parser = argparse.ArgumentParser(
+        "Windows Setup Tool",
+        "This method moves the configuration files in <config> into the APPDATA folder on windows, and moves it into a temporary folder on other systems.",
+    )
+    parser.add_argument("config", help="Config folder location")
+    parser.add_argument(
+        "-do",
+        "--debug-output",
+        help="Debug output location for non windows functions.",
+        type=str,
+        default="./temp/",
+    )
 
     args = parser.parse_args()
     config = Path(args.config)
@@ -18,11 +28,11 @@ def setup_windows() -> None:
 
     # On non-windows systems we use the debug path.
     if os.name == "nt":
-        appdata_folder = Path(os.getenv('APPDATA'))
+        appdata_folder = Path(os.getenv("APPDATA"))
     else:
         appdata_folder = debug_output
 
-    folders = config.glob('**/.config/*')
+    folders = config.glob("**/.config/*")
     for folder in folders:
         if not folder.is_dir():
             continue
@@ -38,7 +48,8 @@ def setup_windows() -> None:
             toml = _convert_to_windows(toml)
             toml_file.write_text(tomli_w.dumps(toml))
 
-def _convert_to_windows(toml : dict[str, Any] | Any) -> dict[str, Any] | Any:
+
+def _convert_to_windows(toml: dict[str, Any] | Any) -> dict[str, Any] | Any:
     "This function removes all keys with the name ending with _windows and inserts them in the stripped name."
     if not isinstance(toml, dict):
         return toml
@@ -56,12 +67,3 @@ def _convert_to_windows(toml : dict[str, Any] | Any) -> dict[str, Any] | Any:
         _convert_to_windows(toml[new_key])
 
     return toml
-    
-
-
-
-
-
-    
-
-    

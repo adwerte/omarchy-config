@@ -1,7 +1,8 @@
-from flask import Flask, send_from_directory, request
-import os
 import argparse
 import glob
+import os
+
+from flask import Flask, request, send_from_directory
 
 parser = argparse.ArgumentParser()
 parser.add_argument("backup_folder")
@@ -10,9 +11,10 @@ backup_folder = os.path.abspath(args.backup_folder)
 
 app = Flask(__name__)
 
-@app.route('/')
+
+@app.route("/")
 def get_filelist():
-    path = backup_folder +   "/**/*" 
+    path = backup_folder + "/**/*"
     files = glob.glob(path, recursive=True)
     output = []
     for file in files:
@@ -22,10 +24,12 @@ def get_filelist():
         output.append(file.replace(args.backup_folder, ""))
     return output
 
-@app.route('/download')
+
+@app.route("/download")
 def download_file():
-    name = request.args['file']
+    name = request.args["file"]
     return send_from_directory(backup_folder, name)
-    
+
+
 def main():
-    app.run(host = '0.0.0.0', port=5001, debug=False)
+    app.run(host="0.0.0.0", port=5001, debug=False)
