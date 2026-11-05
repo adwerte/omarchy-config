@@ -48,4 +48,4 @@ setup_uv:
     uv tool install devpi-client --with pip-system-certs
     uv tool install pyright
 
-setup: _setup, setup_uv
+setup: _setup setup_uv
