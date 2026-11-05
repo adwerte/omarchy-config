@@ -12,7 +12,7 @@ _install_pwsh:
 [windows]
 _setup: _install_pwsh
     winget install Helix.Helix --force
-    winget install Gyan.FFmpeg 7zip.7zip jqlang.jq oschwartz10612.Poppler sharkdp.fd BurntSushi.ripgrep.MSVC junegunn.fzf ajeetdsouza.zoxide ImageMagick.ImageMagick --force
+    winget install yazi Gyan.FFmpeg 7zip.7zip jqlang.jq oschwartz10612.Poppler sharkdp.fd BurntSushi.ripgrep.MSVC junegunn.fzf ajeetdsouza.zoxide ImageMagick.ImageMagick --force
     winget install -e --id=JesseDuffield.lazygit --force
     winget install --id=astral-sh.uv  -e --force
 
