@@ -1,9 +1,10 @@
-http://pihole.local {
+pihole.local {
+    tls /certs/local.crt /certs/local.key
     reverse_proxy pihole_server:3000
 }
 
 budget.local {
     encode gzip zstd
-    tls /certs/budget.local.crt /certs/budget.local.key
+    tls /certs/local.crt /certs/local.key
     reverse_proxy actual_server:5006
 }

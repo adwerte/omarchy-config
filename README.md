@@ -40,24 +40,24 @@ The answer to these is only important for the purpose of documentation.
 We'll now generate a certificate for our site.
 First we generate a private key for the site:
 ```sh
-openssl genrsa -out <site>.local.key 2048
+openssl genrsa -out local.key 2048
 ```
 Then we make a certificate request file:
 ```sh 
-openssl req -new -key <site>.local.key -out <site>.local.csr
+openssl req -new -key local.key -out local.csr
 ```
 Again we get a wave of questions, this is only important for the
 purpose of documentation.
 
 Finally we use the following command to generate a signed certificate.
 ```sh
-openssl x509 -req -in <site>.local.csr -CA myCA.pem -CAkey myCA.key \
--CAcreateserial -out <site>.local.crt -days 825 -sha256 -extfile server_file.ext
+openssl x509 -req -in local.csr -CA myCA.pem -CAkey myCA.key \
+-CAcreateserial -out local.crt -days 825 -sha256 -extfile server_file.ext
 ```
 It is valid for 825 days, or about 2 years.
-Now we use the `<site>.local.key` and the `<site>.test.crt` in caddy
+Now we use the `local.key` and the `local.crt` in caddy
 to attach a valid certificate to our site. 
 
 Based on this guide: [SSL Certificate Guide](https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development) 
 
-
+This has been implemented as just commands.

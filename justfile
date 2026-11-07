@@ -6,11 +6,11 @@ default:
 
 [windows]
 [script("powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File")]
-_install_pwsh:
+_install-pwsh:
     winget install --id Microsoft.PowerShell --source winget
 
 [windows]
-_setup: _install_pwsh
+_setup: _install-pwsh
     winget install Helix.Helix --force
     winget install yazi Gyan.FFmpeg 7zip.7zip jqlang.jq oschwartz10612.Poppler sharkdp.fd BurntSushi.ripgrep.MSVC junegunn.fzf ajeetdsouza.zoxide ImageMagick.ImageMagick --force
     winget install -e --id=JesseDuffield.lazygit --force
@@ -38,14 +38,27 @@ _setup:
 
 
 [windows]
-setup_appdata:
+setup-appdata:
     uv run setup-windows ./config/
 
     
-setup_uv:
+setup-uv:
     uv tool install black
     uv tool install isort
     uv tool install devpi-client --with pip-system-certs
     uv tool install pyright
 
-setup: _setup setup_uv
+setup: _setup setup-uv
+
+
+[linux]
+setup-ca:
+    openssl genrsa -des3 -out ./certs/myCA.key 2048
+    openssl req -x509 -new -nodes -key ./certs/myCA.key -sha256 -days 1825 -out ./certs/myCA.pem
+
+[linux]
+create-key:
+    openssl genrsa -out ./certs/local.key 2048
+    openssl req -new -key ./certs/local.key -out ./certs/local.csr
+    openssl x509 -req -in ./certs/local.csr -CA ./certs/myCA.pem -CAkey ./certs/myCA.key \
+    -CAcreateserial -out ./certs/local.crt -days 825 -sha256 -extfile ./server_setup.ext
