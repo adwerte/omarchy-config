@@ -1,4 +1,3 @@
-# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
 networks:
   web-network:
     driver: bridge
@@ -45,6 +44,7 @@ services:
       - web-network
   caddy:
     image: caddy:latest
+    container_name: caddy
     restart: unless-stopped
     ports:
       - 80:80/tcp
@@ -57,8 +57,6 @@ services:
       - web-network
   actual_server:
     image: docker.io/actualbudget/actual-server:latest
-    # ports:
-    #   - '5006:5006'
     container_name: actual_server
     environment:
       # Uncomment any of the lines below to set configuration options.
@@ -86,3 +84,33 @@ services:
     networks:
       - web-network
     restart: unless-stopped
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - WEBUI_PORT=8080
+    volumes:
+      - ~/Documents/docker_data/qbittorrent_data:/config
+      - ~/Torrents:/downloads
+      - /etc/localtime:/etc/localtime:ro
+    # network_mode: "service:gluetun"
+    restart: unless-stopped
+
+  gluetun: # VPN Tool
+    container_name: gluetun 
+    image: qmcgaw/gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - VPN_SERVICE_PROVIDER=nordvpn
+      - VPN_TYPE=openvpn # or wireguard
+      - OPENVPN_USER=${OPENVPN_USER}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+      - OPENVPN_CIPHERS=AES-256-GCM
+      - SERVER_COUNTRIES=Netherlands
+      - PORT_FORWARD_ONLY=on
+      - VPN_PORT_FORWARDING=on
+    networks:
+      - web-network
