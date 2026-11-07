@@ -10,9 +10,7 @@ budget.local {
 }
 
 torrent.local {
-    reverse_proxy qbittorrent:8080
+    tls /certs/local.crt /certs/local.key
+    reverse_proxy gluetun:8080
 }
 
-gluetun.local {
-    reverse_proxy gluetun:8000
-}
