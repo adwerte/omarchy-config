@@ -11,7 +11,7 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
       # Default HTTPs Port. FTL will generate a self-signed certificate
-      # - "3000:443"
+      - "3000:3000"
       # Uncomment the below if using Pi-hole as your DHCP Server
       #- "67:67/udp"
       # Uncomment the line below if you are using Pi-hole as your NTP server
@@ -84,6 +84,21 @@ services:
     networks:
       - web-network
     restart: unless-stopped
+
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    volumes:
+      - ~/Documents/docker_data/jellyfin_data/config:/config
+      - ~/Documents/docker_data/jellyfin_data/cache:/cache
+      - type: bind
+        source: ~/Torrents/
+        target: /media
+    restart: 'unless-stopped'
+    networks:
+      - web-network
+
+  
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -111,3 +126,5 @@ services:
       - FIREWALL_INPUT_PORTS=8080
     networks:
       - web-network
+
+  

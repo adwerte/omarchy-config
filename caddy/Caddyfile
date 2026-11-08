@@ -1,16 +1,24 @@
-pihole.local {
+pihole.internal {
     tls /certs/local.crt /certs/local.key
     reverse_proxy pihole_server:3000
 }
 
-budget.local {
+budget.internal {
     encode gzip zstd
     tls /certs/local.crt /certs/local.key
     reverse_proxy actual_server:5006
 }
 
-torrent.local {
+torrent.internal {
     tls /certs/local.crt /certs/local.key
     reverse_proxy gluetun:8080
 }
 
+http://streaming.internal {
+    reverse_proxy jellyfin:8096
+}
+
+https://streaming.internal {
+    tls /certs/local.crt /certs/local.key
+    reverse_proxy jellyfin:8096
+}
