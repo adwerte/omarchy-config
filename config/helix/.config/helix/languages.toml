@@ -1,14 +1,28 @@
 [[language]]
+name = "markdown"
+file-types = ["md"]
+language-servers = ["harper-ls"]
+
+[[language]]
 name = "python"
 language-servers = ["pyright"]
 file-types = ["py"]
 auto-format = true
 formatter = { command = "sh", args = ["-c", "isort --stdout --profile black - | black --quiet -"] }
 
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+
+[[language]]
+name = "rust"
+file-types = ["rs"]
+language-servers = ["rust-analyzer", "harper-ls"]
 
 [language-server.rust-analyzer]
 config = { check = { command = "clippy" } }
+timeout = 60
 
-[language-server.pyright]
-command = "pyright-langserver"
+[language-server.harper-ls]
+command = "harper-ls"
 args = ["--stdio"]
