@@ -2,6 +2,8 @@
 name = "markdown"
 file-types = ["md"]
 language-servers = ["harper-ls"]
+auto-format = true
+formatter = {command = "npx", args = ["prettier", "--parser", "markdown"]}
 
 [[language]]
 name = "python"
