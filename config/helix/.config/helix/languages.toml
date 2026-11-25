@@ -10,14 +10,7 @@ name = "python"
 language-servers = ["pyright"]
 file-types = ["py"]
 auto-format = true
-formatter = {
-    command = "pwsh",
-    args = [
-        "-NoProfile",
-        "-Command",
-        "isort --stdout --profile black - | black --quiet -"
-    ]
-}
+formatter = {command = "pwsh", args = ["-NoProfile", "-Command", "isort --stdout --profile black - | black --quiet -"]}
 
 [language-server.pyright]
 command = "pyright-langserver"
